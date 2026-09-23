@@ -122,6 +122,19 @@
     
 
 
+    
+    <!-- Redirect to Home on Refresh -->
+    <script>
+      (function() {
+          const currentPath = window.location.pathname;
+          // Don't redirect if we are already on home, or if we are in admin panel
+          if (currentPath !== '/' && !currentPath.startsWith('/admin')) {
+              // Redirect to home page
+              history.replaceState(null, '', '/');
+          }
+      })();
+    </script>
+
     <!-- Scroll to Top on Load/Refresh Only -->
     <script>
       if ('scrollRestoration' in history) {
