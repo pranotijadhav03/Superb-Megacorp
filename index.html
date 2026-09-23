@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="https://superbmegacorp.com/wp-content/uploads/2021/01/new-logo-superb-mega-corp.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Superb MegaCorp - Pioneering commercial solutions for the beverage, food and agriculture industry since 2010. Producers of Amruttulya Tea Premix, Tea Spot Franchise, Superb Pomo & Vizuki Agro Machinery." />
+    <title>Superb MegaCorp | Business Conglomerate</title>
+    <!-- Google Fonts: Inter & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Razorpay Standard Checkout SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCLKQlCGn4yClPSNhjc_KMuH7IwOlNEayc",
+            projectId: "dist-7b242",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        window.db = db;
+        window.auth = auth;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+        window.doc = doc;
+        window.setDoc = setDoc;
+        window.serverTimestamp = serverTimestamp;
+
+        async function initApp() {
+            try {
+                const snap = await getDocs(collection(db, 'products'));
+                const products = [];
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    products.push({
+                        id: doc.id,
+                        name: data.name || '',
+                        category: data.category || '',
+                        mrp: parseInt((data.price || "0").toString().replace(/\D/g, '') || data.mrp || 0),
+                        packing: data.description || data.packing || '',
+                        image: data.imageUrl || data.image || '',
+                        sku: data.sku || '',
+                        status: data.status || 'active'
+                    });
+                });
+                window.LIVE_PRODUCTS = products;
+            } catch(e) {
+                console.error("Failed to load live products", e);
+            }
+            
+            const script = document.createElement('script');
+            script.type = 'module';
+            script.crossOrigin = 'anonymous';
+            script.src = '/assets/index-BM-yEkkk.js?v=' + Date.now();
+            document.head.appendChild(script);
+        }
+        initApp();
+    </script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BvH2rQN2.css">
+  </head>
+  <body class="bg-slate-50 text-slate-800 antialiased font-sans">
+    <div id="root"></div>
+
+    <!-- Secret Admin Panel Access -->
+    <script>
+      // Keyboard Shortcut: Ctrl + Shift + A
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+          e.preventDefault();
+          window.open('/admin', '_blank');
+        }
+      });
+    </script>
+    <!-- Secret invisible button at bottom right (double click) -->
+    <div style="position:fixed; bottom:0; right:0; width:50px; height:50px; cursor:default; z-index:9999;" ondblclick="window.open('/admin', '_blank')" title=""></div>
+  
+    
+    <!-- Hidden Google Translate -->
+    <style>
+      #google_translate_element { display: none !important; }
+      .skiptranslate { display: none !important; }
+      body { top: 0 !important; }
+      .goog-te-banner-frame.skiptranslate { display: none !important; }
+      #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+      .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+      iframe.goog-te-banner-frame { display: none !important; }
+      body { position: static !important; top: 0 !important; }
+    </style>
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'en,mr',
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+      window.doTranslate = function(lang) {
+          var teCombo = document.querySelector('select.goog-te-combo');
+          if (teCombo) {
+              teCombo.value = lang;
+              teCombo.dispatchEvent(new Event('change'));
+          }
+      };
+    </script>
+</body>
+
+
+</html>
+
