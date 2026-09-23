@@ -1,13 +1,8 @@
 <!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
-    <!-- Force Scroll to Top on Refresh -->
-    <script>
-      if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, 0);
-    </script>
+    
+    
 
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="https://superbmegacorp.com/wp-content/uploads/2021/01/new-logo-superb-mega-corp.png" />
@@ -122,19 +117,52 @@
       };
     </script>
 
-    <!-- Scroll to Top on Navigation -->
+    
+
+    <!-- Robust Scroll to Top -->
     <script>
-      (function() {
-          const originalPushState = history.pushState;
-          history.pushState = function() {
-              originalPushState.apply(this, arguments);
-              window.scrollTo(0, 0);
-          };
-          window.addEventListener('popstate', function() {
-              window.scrollTo(0, 0);
-          });
-      })();
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      
+      function forceScroll() {
+          window.scrollTo(0, 0);
+      }
+      
+      // Run immediately
+      forceScroll();
+      
+      // Run after React mounts
+      const observer = new MutationObserver((mutations) => {
+          if (document.body.scrollHeight > 1000) {
+              forceScroll();
+              setTimeout(forceScroll, 100);
+              observer.disconnect();
+          }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+      
+      // Hook into SPA navigation
+      const originalPushState = history.pushState;
+      history.pushState = function() {
+          originalPushState.apply(this, arguments);
+          forceScroll();
+          setTimeout(forceScroll, 50);
+          setTimeout(forceScroll, 150);
+      };
+      
+      const originalReplaceState = history.replaceState;
+      history.replaceState = function() {
+          originalReplaceState.apply(this, arguments);
+          forceScroll();
+      };
+      
+      window.addEventListener('popstate', function() {
+          forceScroll();
+          setTimeout(forceScroll, 100);
+      });
     </script>
+
 </body>
 
 
