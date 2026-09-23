@@ -119,20 +119,27 @@
 
     
 
-    <!-- Robust Scroll to Top -->
+    
+
+
+    <!-- Scroll to Top on Load/Refresh Only -->
     <script>
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
       
+      // If the URL has a hash on initial load, remove it so the page doesn't auto-scroll down
+      if (window.location.hash) {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+      
+      // Force scroll to top on load
       function forceScroll() {
           window.scrollTo(0, 0);
       }
-      
-      // Run immediately
       forceScroll();
       
-      // Run after React mounts
+      // Wait for React to mount and force scroll to top one more time
       const observer = new MutationObserver((mutations) => {
           if (document.body.scrollHeight > 1000) {
               forceScroll();
@@ -141,26 +148,6 @@
           }
       });
       observer.observe(document.body, { childList: true, subtree: true });
-      
-      // Hook into SPA navigation
-      const originalPushState = history.pushState;
-      history.pushState = function() {
-          originalPushState.apply(this, arguments);
-          forceScroll();
-          setTimeout(forceScroll, 50);
-          setTimeout(forceScroll, 150);
-      };
-      
-      const originalReplaceState = history.replaceState;
-      history.replaceState = function() {
-          originalReplaceState.apply(this, arguments);
-          forceScroll();
-      };
-      
-      window.addEventListener('popstate', function() {
-          forceScroll();
-          setTimeout(forceScroll, 100);
-      });
     </script>
 
 </body>
