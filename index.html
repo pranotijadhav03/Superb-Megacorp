@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
+    <!-- Force Scroll to Top on Refresh -->
+    <script>
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+    </script>
+
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="https://superbmegacorp.com/wp-content/uploads/2021/01/new-logo-superb-mega-corp.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
