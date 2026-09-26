@@ -3,3 +3,6 @@
 .mobile-hidden { display: none !important; } @media (min-width: 640px) { .mobile-hidden { display: flex !important; } } .h-\\[320px\\] { height: 320px !important; }
 
 .mobile-hidden { display: none !important; } @media (min-width: 640px) { .mobile-hidden { display: flex !important; } } .h-\\[320px\\] { height: 320px !important; }
+.h-\\[320px\\] { height: 320px !important; }
+.h-\\[320px\\] { height: 320px !important; }
+.h-\[320px\] { height: 320px !important; }
