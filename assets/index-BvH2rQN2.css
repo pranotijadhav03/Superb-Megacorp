@@ -6,3 +6,4 @@
 .h-\\[320px\\] { height: 320px !important; }
 .h-\\[320px\\] { height: 320px !important; }
 .h-\[320px\] { height: 320px !important; }
+.hero-mobile-bg { background-color: rgba(0, 0, 0, 0.6) !important; } @media (min-width: 640px) { .hero-mobile-bg { background-color: rgba(0, 0, 0, 0.3) !important; } } .hero-height { height: 480px !important; } @media (min-width: 640px) { .hero-height { height: 600px !important; } } @media (min-width: 1024px) { .hero-height { height: 640px !important; } }
