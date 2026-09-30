@@ -21,7 +21,7 @@ export default defineConfig({
   ],
   server: {
     port: 5173,
-    open: '/admin'
+    open: '/'
   },
   build: {
     rollupOptions: {
